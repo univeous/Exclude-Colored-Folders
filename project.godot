@@ -1,0 +1,37 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=5
+
+[addons]
+
+exclude_colored_folders/folder_color_operation/gray=1
+
+[application]
+
+config/name="ExcludeColoredFolders"
+config/features=PackedStringArray("4.4", "Forward Plus")
+config/icon="res://icon.svg"
+
+[dotnet]
+
+project/assembly_name="ExcludeColoredFolders"
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/exclude_colored_folders/plugin.cfg")
+
+[file_customization]
+
+folder_colors={
+"res://addons/exclude_colored_folders/": "gray"
+}
+
+[rendering]
+
+textures/vram_compression/import_etc2_astc=true
