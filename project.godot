@@ -16,7 +16,7 @@ exclude_colored_folders/folder_color_operation/gray=1
 
 config/name="ExcludeColoredFolders"
 config/features=PackedStringArray("4.4", "Forward Plus")
-config/icon="res://icon.svg"
+config/icon="res://icon.png"
 
 [dotnet]
 
