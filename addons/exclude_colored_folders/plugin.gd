@@ -24,6 +24,9 @@ func _enter_tree() -> void:
 		ProjectSettings.add_property_info({ "name": setting_name, "type": TYPE_INT, "hint": PROPERTY_HINT_ENUM, "hint_string": "no operation, do not export(always), do not export(release), do not export(debug)" })
 		ProjectSettings.set_initial_value(setting_name, FolderColorOperation.NO_OPERATION)
 
+	if not ProjectSettings.has_setting("addons/exclude_colored_folders/always_export_data_script"):
+		ProjectSettings.set_setting("addons/exclude_colored_folders/always_export_data_script", "")
+
 
 func _exit_tree() -> void:
 	remove_export_plugin(export_plugin)
