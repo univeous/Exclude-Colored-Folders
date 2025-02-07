@@ -5,8 +5,8 @@ var always_export_data := []
 
 func _export_begin(features: PackedStringArray, is_debug: bool, path: String, flags: int) -> void:
 	colored_folders.assign(ProjectSettings.get("file_customization/folder_colors"))
-	always_export_script = ProjectSettings.get("addons/exclude_colored_folders/always_export_data_script", "")
-	if always_export_script != "":
+	var always_export_script = ProjectSettings.get("addons/exclude_colored_folders/always_export_data_script")
+	if always_export_script:
 		always_export_data = load(always_export_script).new().data
 
 
