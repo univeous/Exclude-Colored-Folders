@@ -1,29 +1,31 @@
 @tool
 extends EditorPlugin
-class_name ExcludeColoredFolders
 
+const _ExportPlugin = preload("res://addons/exclude_colored_folders/export_plugin.gd")
 
-
-var export_plugin := preload("res://addons/exclude_colored_folders/export_plugin.gd").new()
-enum FolderColorOperation {
-	NO_OPERATION,
-	DO_NOT_EXPORT_ALWAYS,
-	DO_NOT_EXPORT_ON_RELEASE,
-	DO_NOT_EXPORT_ON_DEBUG,
-}
+var _export_plugin: EditorExportPlugin
 
 
 func _enter_tree() -> void:
-	add_export_plugin(export_plugin)
-	var colors = ["red", "orange", "yellow", "green", "teal", "blue", "purple", "pink", "gray"]
-	var settings = "addons/exclude_colored_folders/folder_color_operation/"
-	for color in colors:
-		var setting_name = "%s%s" % [settings, color]
-		if not ProjectSettings.has_setting(setting_name):
-			ProjectSettings.set_setting(setting_name, FolderColorOperation.NO_OPERATION)
-		ProjectSettings.add_property_info({ "name": setting_name, "type": TYPE_INT, "hint": PROPERTY_HINT_ENUM, "hint_string": "no operation, do not export(always), do not export(release), do not export(debug)" })
-		ProjectSettings.set_initial_value(setting_name, FolderColorOperation.NO_OPERATION)
+	_export_plugin = _ExportPlugin.new()
+	add_export_plugin(_export_plugin)
+
+	var colors := ["red", "orange", "yellow", "green", "teal", "blue", "purple", "pink", "gray"]
+	var prefix := "addons/exclude_colored_folders/folder_color_operation/"
+	var hint := "No Operation,Don't Export (Always),Don't Export (Release),Don't Export (Debug)"
+	for color: String in colors:
+		var setting := prefix + color
+		if not ProjectSettings.has_setting(setting):
+			ProjectSettings.set_setting(setting, _ExportPlugin.FolderColorOperation.NO_OPERATION)
+		ProjectSettings.set_initial_value(setting, _ExportPlugin.FolderColorOperation.NO_OPERATION)
+		ProjectSettings.add_property_info({
+			"name": setting,
+			"type": TYPE_INT,
+			"hint": PROPERTY_HINT_ENUM,
+			"hint_string": hint,
+		})
 
 
 func _exit_tree() -> void:
-	remove_export_plugin(export_plugin)
+	remove_export_plugin(_export_plugin)
+	_export_plugin = null
